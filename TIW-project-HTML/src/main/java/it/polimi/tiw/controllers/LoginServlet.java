@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import java.io.PrintWriter;
 
 
 import javax.servlet.http.HttpServletRequest;
