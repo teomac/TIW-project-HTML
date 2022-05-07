@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import java.io.PrintWriter;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,38 +16,32 @@ import javax.servlet.http.HttpServlet;
 
 
 
-@WebServlet(name="login")
-public class CheckLogin extends HttpServlet{
+@WebServlet("/loginServlet")
+public class LoginServlet extends HttpServlet{
 	private final static long serialVersionUID = 1L;
 	
 	private Connection connection = null;
-	
-	/*public void init() throws ServletException{
-		connection = ConnectionHandler.getConnection(getServletContext());
-	}
-	
-	public CheckLogin(){
-		super();
-	}*/
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 			String path = null;
 		
 		
-			String email = request.getParameter("email");
-			String psw = request.getParameter("psw");
+			String username = request.getParameter("username");
+			String password = request.getParameter("password");
 			
-			if(email == null || psw == null || email.isEmpty() || psw.isEmpty()) {
+			if(username==null || password == null) {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Credenziali mancanti o incomplete");
 				return;
 			}
 			
-			else if(email==psw) {
+			else{
 				
 				response.sendRedirect(path);
 			}
+
 		
 	}
 
