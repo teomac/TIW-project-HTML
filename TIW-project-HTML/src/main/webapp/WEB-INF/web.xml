@@ -4,6 +4,27 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 version="4.0">
 	
+	<display-name>Progetto TIW</display-name>
+	
+	<context-param>
+		<param-name>dbUrl</param-name>
+		<param-value>jdbc:mysql://localhost:3306/TIW</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>dbUser</param-name>
+		<param-value>matteo</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>dbPassword</param-name>
+		<param-value>db-progetto-tiw</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>dbDriver</param-name>
+		<param-value>com.mysql.cj.jdbc.Driver</param-value>
+	</context-param>
 	
 	<welcome-file-list>
 		<welcome-file>login.html</welcome-file>
