@@ -34,4 +34,17 @@ public class UserDAO {
 			}
 		}
 	}
+	
+	public void createCredentials(String username, String name, String surname, String email, String password) throws SQLException{
+		String query = "INSERT INTO TIW.user (username, name, surname, email, password) VALUES (?, ?, ?, ?, ?)";
+		
+		try(PreparedStatement pstatement = con.prepareStatement(query);){
+			pstatement.setString(1, username);
+			pstatement.setString(2, name);
+			pstatement.setString(3, surname);
+			pstatement.setString(4, email);
+			pstatement.setString(5, password);
+			pstatement.executeUpdate();
+		}
+	}
 }

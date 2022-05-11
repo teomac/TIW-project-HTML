@@ -7,7 +7,7 @@
 	</head>
 	<body>
 		<center>
-			<h2>Login Page</h2>
+			<h2>Login Cliente</h2>
 		</center>
 		
 		<form action="loginServlet" method="post">
@@ -29,8 +29,37 @@
 			
 			<tr>
 				<td>
-				Don't have an account?
-				<a href="registration.html">Register</a>
+				Sei un nuovo cliente?
+				<a href="registration.html">Registrati</a>
+				</td>
+			</tr>
+		</table>
+		
+		<br></br><br></br><br></br>
+		
+		<center>
+			<h2>Login Impiegato</h2>
+		</center>
+		
+		<table>
+			<tr>
+				<td>Username:</td>
+				<td><input type="text" name="username" required></td>
+			</tr>
+			
+			<tr>
+				<td>Password:</td>
+				<td><input type="password" name="password" required></td>
+			</tr>
+			
+			<tr>
+				<td><input type="submit" name="submit" value="Login"></td>
+			</tr>
+			
+			<tr>
+				<td>
+				Sei un nuovo impiegato?
+				<a href="registration.html">Registrati</a>
 				</td>
 			</tr>
 		</table>
