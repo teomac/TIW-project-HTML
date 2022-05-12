@@ -33,6 +33,7 @@ public class LoginServlet extends HttpServlet{
 		super();
 	}
 	
+	@Override
 	public void init() throws ServletException {
 		connection = ConnectionHandler.getConnection(getServletContext());
 		ServletContext servletContext = getServletContext();
@@ -43,7 +44,7 @@ public class LoginServlet extends HttpServlet{
 		templateResolver.setSuffix(".html");
 	}
 
-
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -83,14 +84,14 @@ public class LoginServlet extends HttpServlet{
 
 		}
 			
-			
-			public void destroy() {
-				try {
-					ConnectionHandler.closeConnection(connection);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
+	@Override
+	public void destroy() {
+		try {
+			ConnectionHandler.closeConnection(connection);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 			
 			
 

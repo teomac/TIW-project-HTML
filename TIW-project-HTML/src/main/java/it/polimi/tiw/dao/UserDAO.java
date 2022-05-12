@@ -47,4 +47,38 @@ public class UserDAO {
 			pstatement.executeUpdate();
 		}
 	}
+	
+	public boolean isUsernameFree(String username) throws SQLException{
+        String query = "SELECT 1 FROM user WHERE username= ?";
+        try (PreparedStatement pstatement = con.prepareStatement(query);) {
+            pstatement.setString(1, StringEscapeUtils.escapeJava(username));
+            try (ResultSet result = pstatement.executeQuery();) {
+                // no results, credential check failed
+                return !result.isBeforeFirst();
+            }
+        }
+    }
+	
+	public boolean isEmailFree(String email) throws SQLException{
+        String query = "SELECT 1 FROM user WHERE email=?";
+        try (PreparedStatement pstatement = con.prepareStatement(query);) {
+            pstatement.setString(1, StringEscapeUtils.escapeJava(email));
+            try (ResultSet result = pstatement.executeQuery();) {
+                // no results, credential check failed
+                return !result.isBeforeFirst();
+            }
+        }
+    }
+	
+	public boolean alreadyExists(String username, String email) throws SQLException{
+        String query = "SELECT 1 FROM user WHERE username= ? AND email= ?";
+        try (PreparedStatement pstatement = con.prepareStatement(query);) {
+            pstatement.setString(1, StringEscapeUtils.escapeJava(username));
+            pstatement.setString(2, StringEscapeUtils.escapeJava(email));
+            try (ResultSet result = pstatement.executeQuery();) {
+                // no results, credential check failed
+                return result.isBeforeFirst();
+            }
+        }
+    }
 }
