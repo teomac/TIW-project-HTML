@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import it.polimi.tiw.beans.User;
 
-public class UserDAO {
+public class ClienteDAO {
 	private Connection con;
 
 	public UserDAO(Connection connection) {

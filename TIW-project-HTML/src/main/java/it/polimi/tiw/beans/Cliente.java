@@ -1,6 +1,6 @@
 package it.polimi.tiw.controllers;
 
-public class User {
+public class Cliente {
 	
 	private int id;
 	private String username;
