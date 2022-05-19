@@ -6,6 +6,7 @@ public class Cliente {
 	private String username;
 	private String name;
 	private String surname;
+	private String password;
 	private String email;
 	
 	public getId() {
@@ -45,6 +46,14 @@ public class Cliente {
 	}
 	
 	public setEmail(String email){
+		this.email = email;
+	}
+	
+	public getPassword() {
+		return password;
+	}
+	
+	public setPassword(String email){
 		this.email = email;
 	}
 }
