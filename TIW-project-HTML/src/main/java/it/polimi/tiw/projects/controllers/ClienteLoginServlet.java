@@ -75,7 +75,7 @@ public class ClienteLoginServlet extends HttpServlet{
 				ServletContext servletContext = getServletContext();
 				final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 				ctx.setVariable("errorMsg", "Username o password errati");
-				path = "/index.html";
+				path = "/login.html";
 				templateEngine.process(path, ctx, response.getWriter());
 			} else {
 				request.getSession().setAttribute("cliente", cliente);

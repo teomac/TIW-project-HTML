@@ -5,7 +5,7 @@
 	
 	<context-param>
 		<param-name>dbUrl</param-name>
-		<param-value>jdbc:mysql://localhost:3306/tiw-project-db</param-value>
+		<param-value>jdbc:mysql://localhost:3306/testdb</param-value>
 	</context-param>
 	
 	<context-param>
