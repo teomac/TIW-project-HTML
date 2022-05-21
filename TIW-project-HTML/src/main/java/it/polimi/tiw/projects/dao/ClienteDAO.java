@@ -1,20 +1,21 @@
-package it.polimi.tiw.dao;
+package it.polimi.tiw.projects.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import it.polimi.tiw.beans.User;
+import org.apache.commons.lang.StringEscapeUtils;
+import it.polimi.tiw.projects.beans.Cliente;
 
 public class ClienteDAO {
 	private Connection con;
 
-	public UserDAO(Connection connection) {
+	public ClienteDAO(Connection connection) {
 		this.con = connection;
 	}
 
-	public User checkCredentials(String username, String password) throws SQLException {
-		String query = "SELECT  id, username, name, surname, email FROM user  WHERE username = ? AND password =?";
+	public Cliente checkCredentials(String username, String password) throws SQLException {
+		String query = "SELECT  username, name, surname, email FROM user  WHERE username = ? AND password = ?";
 		try (PreparedStatement pstatement = con.prepareStatement(query);) {
 			pstatement.setString(1, username);
 			pstatement.setString(2, password);
@@ -23,13 +24,12 @@ public class ClienteDAO {
 					return null;
 				else {
 					result.next();
-					User user = new User();
-					user.setId(result.getInt("id"));
-					user.setUsername(result.getString("username"));
-					user.setName(result.getString("name"));
-					user.setSurname(result.getString("surname"));
-					user.setEmail(result.getString("email"));
-					return user;
+					Cliente cliente = new Cliente();
+					cliente.setUsername(result.getString("username"));
+					cliente.setName(result.getString("name"));
+					cliente.setSurname(result.getString("surname"));
+					cliente.setEmail(result.getString("email"));
+					return cliente;
 				}
 			}
 		}
@@ -59,16 +59,6 @@ public class ClienteDAO {
         }
     }
 	
-	public boolean isEmailFree(String email) throws SQLException{
-        String query = "SELECT 1 FROM user WHERE email=?";
-        try (PreparedStatement pstatement = con.prepareStatement(query);) {
-            pstatement.setString(1, StringEscapeUtils.escapeJava(email));
-            try (ResultSet result = pstatement.executeQuery();) {
-                // no results, credential check failed
-                return !result.isBeforeFirst();
-            }
-        }
-    }
 	
 	public boolean alreadyExists(String username, String email) throws SQLException{
         String query = "SELECT 1 FROM user WHERE username= ? AND email= ?";

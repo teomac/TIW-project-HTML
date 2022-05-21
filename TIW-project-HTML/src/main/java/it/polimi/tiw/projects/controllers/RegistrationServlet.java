@@ -1,4 +1,4 @@
-package it.polimi.tiw.controllers;
+/*package it.polimi.tiw.projects.controllers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.UnavailableException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
@@ -19,26 +20,26 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 
-import it.polimi.tiw.beans.User;
-import it.polimi.tiw.dao.UserDAO;
+import it.polimi.tiw.projects.beans.*;
+import it.polimi.tiw.projects.dao.*;
+import it.polimi.tiw.projects.utils.ConnectionHandler;
 
-@WebServlet("/registrationServlet")
+/*@WebServlet("/RegistrationServlet")
 public class RegistrationServlet extends HttpServlet{
 	private final static long serialVersionUID = 1L;
 	private Connection con = null;
 	private TemplateEngine templateEngine;
 	
-	@Override
 	public void init() throws ServletException {
 		con = ConnectionHandler.getConnection(getServletContext());
 		ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver(getServletContext());
 		templateResolver.setTemplateMode(TemplateMode.HTML);
-		this.te = new TemplateEngine();
-		this.te.setTemplateResolver(templateResolver);
+		this.templateEngine = new TemplateEngine();
+		this.templateEngine.setTemplateResolver(templateResolver);
 		templateResolver.setSuffix(".html");
 		
 		try {
-			String driver = servletContext.getInitParameter("dbDriver");
+			String driver = templateResolver.getInitParameter("dbDriver");
 			String url = servletContext.getInitParameter("dbUrl");
 			String user = servletContext.getInitParameter("dbUser");
 			String password = servletContext.getInitParameter("dbPassword");
@@ -52,7 +53,6 @@ public class RegistrationServlet extends HttpServlet{
 		
 	}
 	
-	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = "/WEB-INF/registration.html";
 		ServletContext servletContext = getServletContext();
@@ -65,14 +65,14 @@ public class RegistrationServlet extends HttpServlet{
             alert = (Alert) request.getSession().getAttribute("registerResult");
         }*/
 
-        request.getSession().setAttribute("registerResult", alert);
+        /*request.getSession().setAttribute("registerResult", alert);
         webContext.setVariable("errorMessage", request.getSession().getAttribute("registerResult"));
         templateEngine.process(path, webContext, response.getWriter());
-        /*if(alert.isDismissible()) alert.hide();*/
-	}
+        /*if(alert.isDismissible()) alert.hide();
+	}*/
 	
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+	/*protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<String> paramList = new ArrayList<>(Arrays.asList("username", "name", "surname", "email", "password"));
 		if(!Utility.paramExists(request, response, paramList) || Utility.paramIsEmpty(request, response, paramList)) return;
 		
@@ -86,21 +86,21 @@ public class RegistrationServlet extends HttpServlet{
 		
 		try {
 			if(userDAO.alreadyExists(username, email)) {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Utente già registrato");
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Utente giï¿½ registrato");
 				return;
 			}
 			
 			if(!userDAO.isEmailFree(email)) {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Email già associata ad un utente");
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Email giï¿½ associata ad un utente");
 				return;
 			}
 			if(!userDAO.isUsernameFree(username)){
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Username già in uso");
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Username giï¿½ in uso");
 				return;
 			}
 		
 		}
 		
-		/*TODO Confimation message*/
+		/*TODO Confimation message
 	}
-}
+}*/

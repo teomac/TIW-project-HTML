@@ -1,4 +1,4 @@
-package it.polimi.tiw..utils;
+package it.polimi.tiw.projects.utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
