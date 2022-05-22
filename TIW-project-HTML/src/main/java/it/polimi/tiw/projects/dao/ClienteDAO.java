@@ -35,8 +35,8 @@ public class ClienteDAO {
 		}
 	}
 	
-	public void createCredentials(String username, String name, String surname, String email, String password) throws SQLException{
-		String query = "INSERT INTO TIW.user (username, name, surname, email, password) VALUES (?, ?, ?, ?, ?)";
+	public void createCredentialsCliente(String username, String name, String surname, String email, String password) throws SQLException{
+		String query = "INSERT INTO cliente (username, name, surname, email, password) VALUES (?, ?, ?, ?, ?)";
 		
 		try(PreparedStatement pstatement = con.prepareStatement(query);){
 			pstatement.setString(1, username);
@@ -49,7 +49,7 @@ public class ClienteDAO {
 	}
 	
 	public boolean isUsernameFree(String username) throws SQLException{
-        String query = "SELECT 1 FROM user WHERE username= ?";
+        String query = "SELECT 1 FROM cliente WHERE username= ?";
         try (PreparedStatement pstatement = con.prepareStatement(query);) {
             pstatement.setString(1, StringEscapeUtils.escapeJava(username));
             try (ResultSet result = pstatement.executeQuery();) {
@@ -61,7 +61,7 @@ public class ClienteDAO {
 	
 	
 	public boolean alreadyExists(String username, String email) throws SQLException{
-        String query = "SELECT 1 FROM user WHERE username= ? AND email= ?";
+        String query = "SELECT 1 FROM cliente WHERE username= ? AND email= ?";
         try (PreparedStatement pstatement = con.prepareStatement(query);) {
             pstatement.setString(1, StringEscapeUtils.escapeJava(username));
             pstatement.setString(2, StringEscapeUtils.escapeJava(email));
