@@ -1,4 +1,4 @@
-/*package it.polimi.tiw.projects.controllers;
+package it.polimi.tiw.projects.controllers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,8 +24,9 @@ import it.polimi.tiw.projects.beans.*;
 import it.polimi.tiw.projects.dao.*;
 import it.polimi.tiw.projects.utils.ConnectionHandler;
 
-/*@WebServlet("/RegistrationServlet")
-public class RegistrationServlet extends HttpServlet{
+
+@WebServlet("/Registration")
+public class Registration extends HttpServlet{
 	private final static long serialVersionUID = 1L;
 	private Connection con = null;
 	private TemplateEngine templateEngine;
@@ -39,16 +40,14 @@ public class RegistrationServlet extends HttpServlet{
 		templateResolver.setSuffix(".html");
 		
 		try {
-			String driver = templateResolver.getInitParameter("dbDriver");
-			String url = servletContext.getInitParameter("dbUrl");
-			String user = servletContext.getInitParameter("dbUser");
-			String password = servletContext.getInitParameter("dbPassword");
+			String driver = ((ServletContext) templateResolver).getInitParameter("dbDriver");
+			String url = ((ServletContext) templateResolver).getInitParameter("dbUrl");
+			String user = ((ServletContext) templateResolver).getInitParameter("dbUser");
+			String password = ((ServletContext) templateResolver).getInitParameter("dbPassword");
 			
 			con = DriverManager.getConnection(url, user, password);
-		} catch (ClassNotFoundException e) {
-			throw new UnavailableException("Impossibile caricare il db driver");
 		} catch (SQLException e) {
-			throw new UnavailableException("Impossibile connettersi al database");
+			throw new UnavailableException("Couldn't connect to db");
 		}
 		
 	}
@@ -58,21 +57,21 @@ public class RegistrationServlet extends HttpServlet{
 		ServletContext servletContext = getServletContext();
 		
 		final WebContext webContext = new WebContext(request, response, servletContext, request.getLocale());
-        /*Alert alert;
+        Alert alert;
         if(request.getSession().getAttribute("registerResult")==null){
             alert = new Alert(false, Alert.DANGER, "");
         } else {
             alert = (Alert) request.getSession().getAttribute("registerResult");
-        }*/
+        }
 
-        /*request.getSession().setAttribute("registerResult", alert);
+        request.getSession().setAttribute("registerResult", alert);
         webContext.setVariable("errorMessage", request.getSession().getAttribute("registerResult"));
         templateEngine.process(path, webContext, response.getWriter());
-        /*if(alert.isDismissible()) alert.hide();
-	}*/
+        if(alert.isDismissible()) alert.hide();
+	}
 	
 	
-	/*protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<String> paramList = new ArrayList<>(Arrays.asList("username", "name", "surname", "email", "password"));
 		if(!Utility.paramExists(request, response, paramList) || Utility.paramIsEmpty(request, response, paramList)) return;
 		
@@ -101,6 +100,6 @@ public class RegistrationServlet extends HttpServlet{
 		
 		}
 		
-		/*TODO Confimation message
+		//TODO Confimation message
 	}
-}*/
+}

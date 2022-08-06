@@ -1,12 +1,17 @@
 package it.polimi.tiw.projects.beans;
 
-public class Cliente {
+public class User {
 	
 	private String username;
 	private String name;
 	private String surname;
 	private String password;
 	private String email;
+	private Boolean employee;
+	
+	
+
+	
 	
 	
 	public String getUsername() {
@@ -47,5 +52,13 @@ public class Cliente {
 	
 	public void setPassword(String email){
 		this.email = email;
+	}
+	
+	public void setEmployee(Boolean b) {
+		employee=b;
+	}
+	
+	public Boolean getEmployee() {
+		return employee;
 	}
 }

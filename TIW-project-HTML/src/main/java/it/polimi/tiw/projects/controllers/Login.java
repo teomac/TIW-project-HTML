@@ -1,10 +1,9 @@
 package it.polimi.tiw.projects.controllers;
 
 import java.sql.Connection;
+
 import java.io.IOException;
 import java.sql.SQLException;
-
-
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,13 +21,13 @@ import it.polimi.tiw.projects.beans.*;
 import it.polimi.tiw.projects.dao.*;
 import it.polimi.tiw.projects.utils.*;
 
-@WebServlet("/ClienteLoginServlet")
-public class ClienteLoginServlet extends HttpServlet{
+@WebServlet("/Login")
+public class Login extends HttpServlet{
 	private final static long serialVersionUID = 1L;
 	private Connection connection = null;
 	private TemplateEngine templateEngine;
-	
-	public ClienteLoginServlet() {
+
+	public Login() {
 		super();
 	}
 	
@@ -55,31 +54,42 @@ public class ClienteLoginServlet extends HttpServlet{
 				username = request.getParameter("username");
 				password = request.getParameter("password");
 				
+				if (username == null || password == null || username.isEmpty() || password.isEmpty()) {
+					throw new Exception("Missing or empty credential value");
+				}
+
 			}catch (Exception e) {
-				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Credenziali mancanti o incomplete");
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing credentials");
 			}
 			
-			ClienteDAO clienteDAO = new ClienteDAO(connection);
-			Cliente cliente = new Cliente();
-			cliente = null;
+			UserDAO userDAO = new UserDAO(connection);
+			User user = new User();
+			user = null;
 			
 			try {
-				cliente = clienteDAO.checkCredentials(username, password);
+				user = userDAO.checkCredentials(username, password);
 			} catch (SQLException e) {
-				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Non è stato possibile controllare le credenziali");
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to check credentials");
 				return;
 			}
 			
 			
-			if (cliente == null) {
+			if (user == null) {
 				ServletContext servletContext = getServletContext();
 				final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 				ctx.setVariable("errorMsg", "Username o password errati");
-				path = "/login.html";
+				path = "/loginPage.html";
 				templateEngine.process(path, ctx, response.getWriter());
 			} else {
-				request.getSession().setAttribute("cliente", cliente);
-				path = getServletContext().getContextPath() + "/HomePageCliente";
+				request.getSession().setAttribute("user ", user);
+				if(user.getEmployee()==true){
+				//path = getServletContext().getContextPath() + HomepageEmployee.html";
+				path= "/HomepageEmployee.html";
+				}
+				else {
+				//path = getServletContext().getContextPath() + "/WEB-INF/lib/HomepageClient.hml";
+				path= "/HomepageClient.html";}
+					
 				response.sendRedirect(path);
 			}
 
