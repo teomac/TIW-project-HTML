@@ -2,9 +2,9 @@ package it.polimi.tiw.projects.beans;
 
 import java.util.ArrayList;
 
-public class Preventive {
+public class Quote {
 
-	private int preventiveID;
+	private int quoteID;
 	private String clientUsername;
 	private String employeeUsername;
 	private String productName;
@@ -12,19 +12,15 @@ public class Preventive {
 	private double price;
 	
 	
-	public Preventive() {
+	public Quote() {
 		clientUsername=null;
 		employeeUsername=null;
 		productName=null;
 		selectedOptions.clear();
 	}
 	
-	public int getPreventiveID() {
-		return preventiveID;
-	}
-	public void setPreventiveID(int preventiveID) {
-		this.preventiveID = preventiveID;
-	}
+	
+	
 	public String getClientUsername() {
 		return clientUsername;
 	}
@@ -56,6 +52,14 @@ public class Preventive {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public int getQuoteID() {
+		return quoteID;
+	}
+
+	public void setQuoteID(int quoteID) {
+		this.quoteID = quoteID;
 	}
 	
 	
