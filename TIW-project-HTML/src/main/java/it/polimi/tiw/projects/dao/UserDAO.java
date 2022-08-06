@@ -39,7 +39,7 @@ public class UserDAO {
 	
 	
 	public void createCredentials(String username, String name, String surname, String email, String password, Boolean employee) throws SQLException{
-		String query = "INSERT INTO user (username, name, surname, email, password, employee) VALUES (?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO TIW.user (username, name, surname, email, password, employee) VALUES (?, ?, ?, ?, ?, ?)";
 		
 		try(PreparedStatement pstatement = con.prepareStatement(query);){
 			pstatement.setString(1, username);
