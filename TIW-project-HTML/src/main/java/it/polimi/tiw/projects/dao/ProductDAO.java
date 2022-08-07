@@ -2,7 +2,6 @@ package it.polimi.tiw.projects.dao;
 
 import it.polimi.tiw.projects.beans.*;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,18 +19,15 @@ public class ProductDAO {
 	public List<Product> list() throws SQLException{
 		List<Product> products = new ArrayList<>();
 		
-		String SQLQuery = "SELECT * FROM testdb.products";
+		String SQLQuery = "SELECT * FROM product";
 		
 		try(PreparedStatement statement = connection.prepareStatement(SQLQuery);
 				ResultSet resultSet = statement.executeQuery();
 				){
 			while(resultSet.next()) {
-				Product product = new Product(resultSet.getInt("productCode"), resultSet.getString("productName"), resultSet.getString("productImage"), resultSet.getString("productImage));
+				Product product = new Product(resultSet.getInt("code"), resultSet.getString("name"), resultSet.getString("image"));
 				products.add(product);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+			}}
 		
 		return products;
 	}
