@@ -1,6 +1,6 @@
 package it.polimi.tiw.projects.beans;
 
-public class SelectedOptions {
+public class SOptions {
 
 	private int optionID;
 	private int quoteID;

@@ -31,5 +31,20 @@ public class ProductDAO {
 		
 		return products;
 	}
+	
+	public Product findProductDetails(int productCode) throws SQLException {
+		Product p = new Product();
+		
+		String SQLQuery = "SELECT * FROM product WHERE code = ?";
+		
+		try(PreparedStatement statement = connection.prepareStatement(SQLQuery);
+				ResultSet resultSet = statement.executeQuery();
+				){
+			Product product = new Product(resultSet.getInt("code"), resultSet.getString("name"), resultSet.getString("image"));
+			p=product;
+		}
+		
+		return p;
+	}
 
 }

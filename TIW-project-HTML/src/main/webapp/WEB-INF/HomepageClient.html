@@ -26,7 +26,7 @@
 			<tbody>
 				<tr th:each="q : ${quotes}">
 					<td th:text="${q.quoteID}"></td>
-					<td th:text="${ q.productName}"></td>
+					<td th:text="${ q.productID}"></td>
 					<td th:text="${ q.price}"></td>
 					<td><a th:href="@{/GetQuoteDetails(quoteID=${q.quoteID})}">Details</a></td>
 				</tr>

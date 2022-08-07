@@ -5,14 +5,12 @@ public class Quote {
 	private int quoteID;
 	private String clientUsername;
 	private String employeeUsername;
-	private String productName;
+	private int productID;
 	private double price;
 	
 	
 	public Quote() {
-		clientUsername=null;
-		employeeUsername=null;
-		productName=null;
+		super();
 	}
 	
 	
@@ -29,11 +27,11 @@ public class Quote {
 	public void setEmployeeUsername(String employeeUsername) {
 		this.employeeUsername = employeeUsername;
 	}
-	public String getProductName() {
-		return productName;
+	public int getProductID() {
+		return productID;
 	}
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setProductID(int productID) {
+		this.productID = productID;
 	}
 
 	public double getPrice() {

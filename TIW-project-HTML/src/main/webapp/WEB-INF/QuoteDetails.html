@@ -1,10 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Quote Details</title>
 </head>
 <body>
-
+	<h1>Quote details</h1>
+		<div>
+			<!--  <p th:text=" ${'ID: ' + quote.quoteID"></p>-->
+			<p th:text="${'Client username: ' + quote.clientUsername}"></p>
+			<p th:text="${'Employee username: ' + quote.employeeUsername}"></p>
+			<p th:text="${'ProductID: ' + quote.productID}"></p>
+			<!--  <p th:text="${'Product Name: ' + product.productName}"></p>
+			<p th:text="${'Product Image: ' + product.productImage}"></p>-->
+			
+			<p th:text="${'Selected options: '}"></p>
+			
+			<p th:each="${s : selectedOptions}">
+			<p th:text="${s.optionID + s.name"> 
+				<p th:if="${s.inSale}"> In sale!.</p>
+		</div>
 </body>
 </html>
