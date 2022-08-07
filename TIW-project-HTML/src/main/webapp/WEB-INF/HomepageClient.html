@@ -1,27 +1,60 @@
 <!DOCTYPE html>
-<html xmlns:th="www.thymeleaf.org">
-	<head>
-	<meta charset="ISO-8859-1">
-	<title>HomepageClient</title>
-	<link rel="stylesheet" type="text/css" media="all" href="mystyle.css"/>
-	</head>
-	<body>
-			<h1>Home page Client</h1>
-		
-		<form action="Login" method="post">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Home</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/mystyle.css" th:href="@{/css/mystyle.css}" />
+</head>
+<body>
+	<div align="right">
+		<a th:href="@{/Logout}">Logout</a>
+	</div>
+	<h1>Welcome to the Client Home Page</h1>
+	<p th:text="${'Nice to see you again ' + session.user.name + ' ' + session.user.surname}"></p>
+	
+	<div th:if="${quotes.size() >0}">
 		<table>
-		
-			<tr>
-				<td><input type="submit" name="submit" value="Crea nuovo preventivo"></td>
-			</tr>			
-			<tr>
-				<td><input type="submit" name="submit" value="Elenco preventivi"></td>
-			</tr>
-			
-
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Product</th>
+					<th>Price</th>
+					<th>Link</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="q : ${quotes}">
+					<td th:text="${q.quoteID}"></td>
+					<td th:text="${ q.productName}"></td>
+					<td th:text="${ q.price}"></td>
+					<td><a th:href="@{/GetQuoteDetails(quoteID=${q.quoteID})}">Details</a></td>
+				</tr>
+			</tbody>
 		</table>
-		
-		</form>
+	</div>  
+	<div th:if="${quotes.size() == 0}"> No quotes were created.</div>
 
-	</body>
+	<div>
+		<p>Select a product to create a quote</p>
+		<table>
+			<thead>
+				<tr>
+					<th>Product Code</th>
+					<th>Name</th>
+					<th>Image</th>
+					<th>Options</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="p : ${products}">
+					<td th:text="${p.productCode}"></td>
+					<td th:text="${p.productName}"></td>
+					<td><img th:src="@{'/upload/' + ${p.productImage}}" height="100" alt="imageProduct"/></td>
+					<td><a th:href="@{/ChooseOptions(productCode=${p.productCode})}">Go to available options</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
 </html>

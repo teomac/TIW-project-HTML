@@ -1,14 +1,11 @@
 package it.polimi.tiw.projects.beans;
 
-import java.util.ArrayList;
-
 public class Quote {
 
 	private int quoteID;
 	private String clientUsername;
 	private String employeeUsername;
 	private String productName;
-	private ArrayList<Option> selectedOptions;
 	private double price;
 	
 	
@@ -16,7 +13,6 @@ public class Quote {
 		clientUsername=null;
 		employeeUsername=null;
 		productName=null;
-		selectedOptions.clear();
 	}
 	
 	
@@ -38,12 +34,6 @@ public class Quote {
 	}
 	public void setProductName(String productName) {
 		this.productName = productName;
-	}
-	public ArrayList<Option> getOptions() {
-		return selectedOptions;
-	}
-	public void setOptions(ArrayList<Option> options) {
-		this.selectedOptions = options;
 	}
 
 	public double getPrice() {

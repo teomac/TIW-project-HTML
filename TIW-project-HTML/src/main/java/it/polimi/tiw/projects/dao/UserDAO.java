@@ -39,7 +39,7 @@ public class UserDAO {
 	
 	
 	public void createCredentials(String username, String name, String surname, String email, String password, Boolean employee) throws SQLException{
-		String query = "INSERT INTO TIW.user (username, name, surname, email, password, employee) VALUES (?, ?, ?, ?, ?, ?)";
+		String query = "INSERT INTO user (username, name, surname, email, password, employee) VALUES (?, ?, ?, ?, ?, ?)";
 		
 		try(PreparedStatement pstatement = con.prepareStatement(query);){
 			pstatement.setString(1, username);
@@ -52,7 +52,8 @@ public class UserDAO {
 		}
 	}
 	
-	public boolean isUsernameFree(String username) throws SQLException{
+	
+		public boolean isUsernameFree(String username) throws SQLException{
         String query = "SELECT 1 FROM user WHERE username= ?";
         try (PreparedStatement pstatement = con.prepareStatement(query);) {
             pstatement.setString(1, StringEscapeUtils.escapeJava(username));
@@ -63,16 +64,4 @@ public class UserDAO {
         }
     }
 	
-	
-	public boolean alreadyExists(String username, String email) throws SQLException{
-        String query = "SELECT 1 FROM user WHERE username= ? AND email= ?";
-        try (PreparedStatement pstatement = con.prepareStatement(query);) {
-            pstatement.setString(1, StringEscapeUtils.escapeJava(username));
-            pstatement.setString(2, StringEscapeUtils.escapeJava(email));
-            try (ResultSet result = pstatement.executeQuery();) {
-                // no results, credential check failed
-                return result.isBeforeFirst();
-            }
-        }
-    }
 }

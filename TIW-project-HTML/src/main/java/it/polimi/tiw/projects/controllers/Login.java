@@ -81,14 +81,12 @@ public class Login extends HttpServlet{
 				path = "/loginPage.html";
 				templateEngine.process(path, ctx, response.getWriter());
 			} else {
-				request.getSession().setAttribute("user ", user);
+				request.getSession().setAttribute("user", user);
 				if(user.getEmployee()==true){
-				//path = getServletContext().getContextPath() + HomepageEmployee.html";
-				path= "/HomepageEmployee.html";
+				//path = getServletContext().getContextPath() + "/HomeEmployee";;
 				}
 				else {
-				//path = getServletContext().getContextPath() + "/WEB-INF/lib/HomepageClient.hml";
-				path= "/HomepageClient.html";}
+				path = getServletContext().getContextPath() + "/HomeClient";}
 					
 				response.sendRedirect(path);
 			}
