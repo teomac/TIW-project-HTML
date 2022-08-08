@@ -38,7 +38,7 @@ public class UserDAO {
 	
 	
 	public void createCredentials(String username, String name, String surname, String password, Boolean employee) throws SQLException{
-		String query = "INSERT INTO user (username, name, surname, password, employee) VALUES (?, ?, ?, ?, ?)";
+		String query = "INSERT INTO user (username, name, surname, password, employee) VALUES (LOWER(?), ?, ?, ?, ?)";
 		
 		try(PreparedStatement pstatement = con.prepareStatement(query);){
 			pstatement.setString(1, username);
@@ -52,7 +52,7 @@ public class UserDAO {
 	
 	
 		public boolean isUsernameFree(String username) throws SQLException{
-        String query = "SELECT 1 FROM user WHERE username= ?";
+        String query = "SELECT 1 FROM user WHERE LOWER (username)= LOWER(?)";
         try (PreparedStatement pstatement = con.prepareStatement(query);) {
             pstatement.setString(1, StringEscapeUtils.escapeJava(username));
             try (ResultSet result = pstatement.executeQuery();) {
