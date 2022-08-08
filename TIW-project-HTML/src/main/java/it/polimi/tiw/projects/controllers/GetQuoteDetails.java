@@ -20,9 +20,11 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import it.polimi.tiw.projects.beans.Option;
+import it.polimi.tiw.projects.beans.Product;
 import it.polimi.tiw.projects.beans.Quote;
 import it.polimi.tiw.projects.beans.User;
 import it.polimi.tiw.projects.dao.OptionDAO;
+import it.polimi.tiw.projects.dao.ProductDAO;
 import it.polimi.tiw.projects.dao.QuoteDAO;
 import it.polimi.tiw.projects.utils.ConnectionHandler;
 
@@ -107,20 +109,29 @@ public class GetQuoteDetails extends HttpServlet{
 				
 		
 		OptionDAO optionDao = new OptionDAO(connection);
-		ArrayList<Option> sO1 = new ArrayList<Option>();
+		List<Option> sOpt = new ArrayList<Option>();
 		
-		if(selectedOptions.size()!=0) {
-		for(Option o : selectedOptions) {
-			sO1.add(o);
-		}
-		for(Option opt: sO1) {
+		for(Option opt: selectedOptions) {
+			int temp = opt.getOptionID();
+			Option o1 = new Option();
 			try {
-				int temp = opt.getOptionID();
-				opt = optionDao.findOptionDetails(temp);
+				o1 = optionDao.findOptionDetails(temp);
+				sOpt.add(o1);
 			}catch (SQLException e) {
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Not possible to recover option details");
 				return;}
 			}
+		
+		
+		
+		ProductDAO productDao = new ProductDAO(connection);
+		Product product= new Product();
+		
+		try {
+			product = productDao.findProductDetails(quote.getProductID());
+		} catch (SQLException e) {
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Not possible to recover product details");
+			return;
 		}
 		
 		
@@ -131,7 +142,8 @@ public class GetQuoteDetails extends HttpServlet{
 		ServletContext servletContext = getServletContext();
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		ctx.setVariable("quote", quote);
-		ctx.setVariable("selectedOptions", selectedOptions);
+		ctx.setVariable("selectedOptions", sOpt);
+		ctx.setVariable("product", product);
 		templateEngine.process(path, ctx, response.getWriter());
 	}
 	

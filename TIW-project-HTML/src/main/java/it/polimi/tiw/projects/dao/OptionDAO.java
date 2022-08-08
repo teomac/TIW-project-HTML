@@ -20,16 +20,15 @@ public class OptionDAO {
 	public List<Option> findAvailableOptions(int productID) throws SQLException{
 		List<Option> availableOptions = new ArrayList<Option>();
 		
-		String query = "SELECT * from avOptions WHERE productID = ? ORDER BY id DESC";
+		String query = "SELECT * from available WHERE productID = ? ORDER BY id DESC";
 		try (PreparedStatement pstatement = connection.prepareStatement(query);) {
 			pstatement.setInt(1, productID);
 			try (ResultSet result = pstatement.executeQuery();) {
 				while (result.next()) {
 					Option option = new Option();
 					option.setOptionID(result.getInt("id"));
-					option.setProductID(result.getInt("productID"));
-					option.setInSale(result.getBoolean("inSale"));
 					option.setName(result.getString("name"));
+					option.setInSale(result.getBoolean("inSale"));
 					availableOptions.add(option);
 				}
 			}
@@ -40,13 +39,12 @@ public class OptionDAO {
 	
 	
 	public Option findOptionDetails(int optionID) throws SQLException{
-		Option o = null;
-		String query = "SELECT * FROM avOptions WHERE id = ?";
+		Option o = new Option();
+		String query = "SELECT * FROM available WHERE id = ?";
 		try (PreparedStatement pstatement = connection.prepareStatement(query)){
 			pstatement.setInt(1, optionID);
 			try (ResultSet result = pstatement.executeQuery();) {
 				if(result.next()) {
-					o = new Option();
 					o.setOptionID(result.getInt("id"));
 					o.setName(result.getString("name"));
 					o.setInSale(result.getBoolean("inSale"));

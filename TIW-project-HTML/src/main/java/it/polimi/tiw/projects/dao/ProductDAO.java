@@ -37,11 +37,14 @@ public class ProductDAO {
 		
 		String SQLQuery = "SELECT * FROM product WHERE code = ?";
 		
-		try(PreparedStatement statement = connection.prepareStatement(SQLQuery);
-				ResultSet resultSet = statement.executeQuery();
-				){
-			Product product = new Product(resultSet.getInt("code"), resultSet.getString("name"), resultSet.getString("image"));
+		try(PreparedStatement pstatement = connection.prepareStatement(SQLQuery)){
+			pstatement.setInt(1,  productCode);
+				try(ResultSet result = pstatement.executeQuery();){
+					if (result.next()) {
+			Product product = new Product(productCode, result.getString("name"), result.getString("image"));
 			p=product;
+					}
+				}
 		}
 		
 		return p;

@@ -27,7 +27,7 @@ public class QuoteDAO {
 			try (ResultSet result = pstatement.executeQuery();) {
 				while (result.next()) {
 					Quote quote = new Quote();
-					quote.setClientUsername(result.getString("client"));
+					quote.setClientUsername(username);
 					quote.setEmployeeUsername(result.getString("employee"));
 					quote.setProductID(result.getInt("product"));
 					quote.setQuoteID(result.getInt("id"));
@@ -50,7 +50,7 @@ public class QuoteDAO {
 			try (ResultSet result = pstatement.executeQuery();){
 				if (result.next()) {
 					q= new Quote();
-					q.setQuoteID(result.getInt("id"));
+					q.setQuoteID(quoteID);
 					q.setProductID(result.getInt("product"));
 					q.setPrice(result.getDouble("price"));
 					q.setEmployeeUsername(result.getString("employee"));

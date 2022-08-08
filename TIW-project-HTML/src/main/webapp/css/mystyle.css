@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.logout{
+	text-align: right;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 50px 0;
+}
+
+.padding-table-columns td
+{
+    padding:0 5px 0 0; /* Only right padding*/
+}
+
+tr.spaceUnder>td {
+  padding-bottom: 1em;
+}
