@@ -28,7 +28,6 @@ public class UserDAO {
 					user.setUsername(result.getString("username"));
 					user.setName(result.getString("name"));
 					user.setSurname(result.getString("surname"));
-					user.setEmail(result.getString("email"));
 					user.setEmployee(result.getBoolean("employee"));
 					return user;
 				}
@@ -38,16 +37,15 @@ public class UserDAO {
 	
 	
 	
-	public void createCredentials(String username, String name, String surname, String email, String password, Boolean employee) throws SQLException{
-		String query = "INSERT INTO user (username, name, surname, email, password, employee) VALUES (?, ?, ?, ?, ?, ?)";
+	public void createCredentials(String username, String name, String surname, String password, Boolean employee) throws SQLException{
+		String query = "INSERT INTO user (username, name, surname, password, employee) VALUES (?, ?, ?, ?, ?)";
 		
 		try(PreparedStatement pstatement = con.prepareStatement(query);){
 			pstatement.setString(1, username);
 			pstatement.setString(2, name);
 			pstatement.setString(3, surname);
-			pstatement.setString(4, email);
-			pstatement.setString(5, password);
-			pstatement.setBoolean(6,  employee);
+			pstatement.setString(4, password);
+			pstatement.setBoolean(5,  employee);
 			pstatement.executeUpdate();
 		}
 	}

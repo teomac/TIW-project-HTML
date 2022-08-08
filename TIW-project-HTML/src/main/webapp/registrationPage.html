@@ -7,12 +7,23 @@
 	</head>
 	<body>
 		<center>
-			<h2>Registrazione cliente</h2>
+			<h2>Registrazione</h2>
 		</center>
 		
-		<form action="Login" method="post">
+		<form action="Registration" method="post">
 		<center><h3>Scegli username e password per registrarti:</h3></center>
 		<table>
+		
+			<tr>
+				<td>Name: </td>
+				<td><input type="name" name="name" required></td>
+			</tr>
+			
+			<tr>
+				<td>Surname: </td>
+				<td><input type="surname" name="surname" required></td>
+			</tr>
+			
 			<tr>
 				<td>Username: </td>
 				<td><input type="username" name="username" required></td>
@@ -22,30 +33,15 @@
 				<td>Password: </td>
 				<td><input type="password" name="password" required></td>
 			</tr>
-			
-			<tr>
-				<td><input type="submit" name="submit" value="Register"></td>
-			</tr>
-			
-
-		</table>
-		
-		<br></br><br></br><br></br>
-		
-		<center>
-			<h2>Registrazione Impiegato</h2>
-		</center>
-		<center><h3>Scegli username e password per registrarti:</h3></center>
-		<table>
-			<tr>
-				<td>Username: </td>
-				<td><input type="Username" name="Username" required></td>
-			</tr>
-			
-			<tr>
-				<td>Password: </td>
-				<td><input type="password" name="password" required></td>
-			</tr>
+			<tr><td>
+			<form name="form1" id="form1">
+				<select id="isEmployee">
+    			<option value="" selected="selected">Customer</option>
+    			<option value="">Employee</option>
+  				</select>
+  			</form>
+  			</td>
+  			</tr>
 			
 			<tr>
 				<td><input type="submit" name="submit" value="Register"></td>
