@@ -13,14 +13,15 @@ public class Product {
 	private ArrayList<Option> availableOptions;
 	
 	
+	public Product() {
+		super();
+	}
 
 	public Product(int code, String name, String image) {
 		this.productCode=code;
 		this.productName=name;
 		this.productImage=image;
 	}
-	
-	
 	
 	
 	public int getProductCode() {

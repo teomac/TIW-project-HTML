@@ -1,10 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Quote Details</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/mystyle.css" th:href="@{/css/mystyle.css}" />
 </head>
 <body>
-
+	<h1>Quote details</h1>
+		<div>
+		<!-- TODO -->
+		<table class="padding-table-columns">
+		<thead>
+  			<tr>
+    			 <th>QuoteID</th>
+   				 <th>Client</th>
+   			     <th>Employee</th>
+   			     <th>ProductID</th>
+   			     <th>Product Name</th>
+   			     <th>Image</th>
+   			     <th>Price</th>
+ 			</tr>
+ 			</thead>
+ 				<tbody>
+ 				
+  			<tr>
+  		
+    				<td th:text= "${quote.quoteID}"> </td>
+    				<td th:text= "${quote.clientUsername}"></td>
+    				<td th:text="${quote.employeeUsername}"></td>
+    				<td th:text="${quote.productID}"></td>
+    				<td th:text="${product.productName}"></td>
+    				<td> <img th:src="@{'/upload/' + ${product.productImage}}" height="200" alt="imageProduct"/></td>
+    				<td th:text="${quote.price}"></td>
+    			
+  			</tr>
+  				</tbody>
+		</table>
+		
+		</div>
+		
+		<div>
+		<br>
+		<br>
+		<br>
+		
+		<h2>Selected Options</h2>
+		
+		<table>
+		<thead>
+  			<tr>
+    			 <th>OptionID</th>
+   				 <th>Name</th>
+   			     <th>Status</th>
+ 			</tr>
+ 			</thead>
+ 				<tbody>
+ 				
+ 				<tr class="spaceUnder" th:each="s: ${selectedOptions}">
+				<td th:text= "${s.optionID}"> </td>
+				<td th:text= "${s.name}"> </td>
+				<td th:if="${s.inSale}"> In sale!</td>
+				</tr>
+				
+				</tbody>
+		</table>
+				
+				
+		</div>
 </body>
 </html>
