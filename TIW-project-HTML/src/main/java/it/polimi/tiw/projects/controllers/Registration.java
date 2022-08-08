@@ -24,6 +24,10 @@ public class Registration extends HttpServlet{
 	private Connection connection = null;
 	private TemplateEngine templateEngine;
 	
+	public Registration() {
+		super();
+	}
+	
     @Override
     public void init() throws ServletException {
 		connection = ConnectionHandler.getConnection(getServletContext());
@@ -57,10 +61,15 @@ public class Registration extends HttpServlet{
 
 		}catch (Exception e) {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing credentials");
+			return;
 		}
 		
+		try {
 		if(username.length()<8 || password.length()<8) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Username or password length is too small or too high . Min = 8 characters, Max = 32 characters");
+			throw new Exception("Username or password length is too small or too high. Min = 8 characters, Max = 32 characters");
+		}}catch (Exception e) {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Username or password length is too small or too high. Min = 8 characters, Max = 32 characters");
+			return;
 		}
 		
 		
@@ -70,11 +79,17 @@ public class Registration extends HttpServlet{
     	try {
     		isFree = userDAO.isUsernameFree(username);
     	}catch (Exception e) {
-			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error checking username");
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error checking username");
+			return;
 		} 
     	
+    	try {
     	if(!isFree) {
+    		throw new Exception("Username already taken");
+    	}}catch (Exception e) {
     		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Username already taken");
+    		return;
+
     	}
     	
     	
@@ -82,7 +97,7 @@ public class Registration extends HttpServlet{
     	try {
     		userDAO.createCredentials(username, name, surname, password, employee);
     	} catch (Exception e) {
-    		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Failed to insert credential in DB");
+    		response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to insert credential in DB");
     	}
     	
     	String loginpath = getServletContext().getContextPath() + "/loginPage.html";

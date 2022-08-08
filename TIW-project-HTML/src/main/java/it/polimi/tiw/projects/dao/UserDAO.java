@@ -47,6 +47,7 @@ public class UserDAO {
 			pstatement.setString(4, password);
 			pstatement.setBoolean(5,  employee);
 			pstatement.executeUpdate();
+			return;
 		}
 	}
 	

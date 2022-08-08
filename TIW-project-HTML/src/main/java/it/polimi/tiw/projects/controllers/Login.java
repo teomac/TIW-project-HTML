@@ -60,6 +60,7 @@ public class Login extends HttpServlet{
 
 			}catch (Exception e) {
 				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing credentials");
+				return;
 			}
 			
 			UserDAO userDAO = new UserDAO(connection);
