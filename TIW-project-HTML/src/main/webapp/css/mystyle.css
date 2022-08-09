@@ -17,3 +17,8 @@ table {
 tr.spaceUnder>td {
   padding-bottom: 1em;
 }
+
+.errorMessage{
+	text-align:center;
+    color: red;
+}

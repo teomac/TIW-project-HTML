@@ -3,23 +3,28 @@
 	<head>
 	<meta charset="ISO-8859-1">
 	<title>Login page</title>
-	<link rel="stylesheet" type="text/css" media="all" href="CSS/mystyle.css"/>
+	<link rel="stylesheet" type="text/css" media="all" href="css/login.css"/>
 	</head>
 	<body>
 	
-			<h1>Login</h1>
+			<h1 style="text-align:center">Login</h1>
 		
 		<form method="post" action="Login">
 		
-		<table>
+		<table class="loginTable">
 			<tr>
 				<td>Username:</td>
-				<td><input type="text" name="username" required></td>
+				</tr>
+				
+				<tr>
+				<td><input type="text" name="username" required pattern=".{8,32}" title="8 to 32 characters"></td>
 			</tr>
 			
 			<tr>
 				<td>Password:</td>
-				<td><input type="password" name="password" required></td>
+				</tr>
+				<tr>
+				<td><input type="password" name="password" required pattern=".{8,32}" title="8 to 32 characters"></td>
 			</tr>
 			
 			<tr>
@@ -29,11 +34,14 @@
 			<tr>
 				<td>
 				Don't have an account yet?
+			</tr>
+			<tr>
+			<td>
 				<a href="registrationPage.html">Register</a>
 				</td>
 			</tr>
 		</table>
-		<p th:text=" ${errorMsg}"></p>
+		<p class="errorMessage" th:text=" ${errorMsg}"></p>
 		
 		</form>
 

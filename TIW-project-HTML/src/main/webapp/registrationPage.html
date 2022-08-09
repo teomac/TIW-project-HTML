@@ -3,43 +3,45 @@
 	<head>
 	<meta charset="ISO-8859-1">
 	<title>Registration page</title>
-	<link rel="stylesheet" type="text/css" media="all" href="CSS/mystyle.css"/>
+	<link rel="stylesheet" type="text/css" media="all" href="css/login.css"/>
 	</head>
 	<body>
-		<center>
-			<h2>Registrazione</h2>
-		</center>
+		
+			<h2 style="text-align:center">Registration</h2>
+		
 		
 		<form action="Registration" method="post">
-		<center><h3>Scegli username e password per registrarti:</h3></center>
-		<table>
+		<h3 style="text-align:center">Please fill the form to register</h3>
+		<table class="loginTable">
 		
 			<tr>
 				<td>Name: </td>
-				<td><input type="name" name="name" required></td>
+				<td><input type="text" name="name" required></td>
 			</tr>
 			
 			<tr>
 				<td>Surname: </td>
-				<td><input type="surname" name="surname" required></td>
+				<td><input type="text" name="surname" required></td>
 			</tr>
 			
 			<tr>
 				<td>Username: </td>
-				<td><input type="username" name="username" required></td>
+				<td><input type="text" name="username" required pattern=".{8,32}" title="8 to 32 characters"></td>
 			</tr>
 			
 			<tr>
 				<td>Password: </td>
-				<td><input type="password" name="password" required></td>
+				<td><input type="password" name="password" required pattern=".{8,32}" title="8 to 32 characters"></td>
 			</tr>
-			<tr><td>
-			<form name="form1" id="form1">
-				<select id="isEmployee">
-    			<option value="" selected="selected">Customer</option>
-    			<option value="">Employee</option>
-  				</select>
-  			</form>
+			
+			<tr>
+			</tr>
+			<tr>
+			<td>
+					<select name="isEmployee" id="isEmployee">
+    				<option value="false" selected="selected">Customer</option>
+    				<option value="true">Employee</option>
+  					</select>
   			</td>
   			</tr>
 			
