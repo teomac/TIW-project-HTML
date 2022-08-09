@@ -4,9 +4,25 @@
 	text-align: right;
 }
 
-table, th, td {
-  border: 2px solid black;
-  border-collapse: collapse;
-  padding: 20px;
-  margin: auto;
+table, th, tr {
+  border: 1.5px solid black;
+}
+
+.loginTable {
+  text-align:center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 1em;
+  border-collapse: separate;
+  border-spacing: 25px 10px;
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 25px 0;
+}
+
+.errorMessage{
+	text-align:center;
+    color: red;
 }
