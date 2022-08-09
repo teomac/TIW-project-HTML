@@ -51,7 +51,6 @@
 					<td th:text="${p.productCode}"></td>
 					<td th:text="${p.productName}"></td>
 					<td><img th:src="@{'/upload/' + ${p.productImage}}" height="100" alt="imageProduct"/></td>
-					<td><a th:href="@{/ChooseOptions(productCode=${p.productCode})}">Go to available options</a></td>
 				</tr>
 			</tbody>
 		</table>
