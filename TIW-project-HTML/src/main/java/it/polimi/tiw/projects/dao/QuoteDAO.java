@@ -77,4 +77,19 @@ public class QuoteDAO {
 		}
 		return selectedOptions;
 	}
+	
+	
+	public void createQuote(int product, String client) throws SQLException{
+		String query = "INSERT INTO quote (product, client) VALUES (?, ?)";
+		
+		try(PreparedStatement pstatement = connection.prepareStatement(query);){
+			pstatement.setInt(1, product);
+			pstatement.setString(2,  client);
+			pstatement.executeUpdate();
+			return;
+		}
+	}
+	
+	
 }
+		

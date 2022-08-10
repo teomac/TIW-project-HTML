@@ -37,24 +37,33 @@
 	<div th:if="${quotes.size() == 0}"> No quotes were created.</div>
 
 	<div>
-		<p>Select a product to create a quote</p>
-		<table>
-			<thead>
-				<tr>
-					<th>Product Code</th>
-					<th>Name</th>
-					<th>Image</th>
-					<th>Options</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="p : ${products}">
-					<td th:text="${p.productCode}"></td>
-					<td th:text="${p.productName}"></td>
-					<td><img th:src="@{'/upload/' + ${p.productImage}}" height="100" alt="imageProduct"/></td>
-				</tr>
-			</tbody>
-		</table>
+		<h1>Create Quote</h1>
+	
+		<p>Select a product to display the available options</p>
+
+			<form action="HomeClient">
+  			<label for="product">Choose a product:</label>
+  				<select name="productCode" id="productCode">
+  				<option value="" selected disabled hidden=>Choose here</option>
+    					 <option th:each="p : ${products}"
+                    th:text="${p.productName}"
+                    th:value="${p.productCode}">
+  				</select>
+  			<br><br>
+  					<input type="submit" value="Load available options">
+					</form>
+				
+				<br><br>
+				<p th:text=" ${message}"></p>
+				<form action="CreateQuote" method="post">
+ 					 <div th:each="t : ${productOptions}">
+   						 <input type="checkbox" th:value="${t.optionID}" th:name="option[]" th:id="${t.name}"/>
+    						<label th:text="${t.name}"></label>
+  					</div>
+  					<br><br>
+  							<input th:if="${message}!=null"
+  							type="submit" value= 'Create Quote'/>
+						</form>
 	</div>
 </body>
 </html>

@@ -85,6 +85,16 @@ public class GetQuoteDetails extends HttpServlet{
 			return;
 		}
 		
+		try {
+			if(quote==null) {
+				throw new Exception ("Not possible to recover quote details");
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Not possible to recover quote details");
+			return;
+		}
+		
 		// check if the user is a Client and quote.clientUsername is equal to active Client username
 		if (user.getEmployee()==false && !(user.getUsername().equals(quote.getClientUsername()))) {
 				response.sendRedirect(loginpath);
