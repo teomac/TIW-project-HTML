@@ -89,7 +89,7 @@ public class QuoteDAO {
 		try (PreparedStatement pstatement = connection.prepareStatement(query);) {
 			pstatement.setInt(1, price);
 			pstatement.setString(2, employee);
-			pstatement.setInt(3, price);
+			pstatement.setInt(3, id);
 			pstatement.executeUpdate();
 		}
 		

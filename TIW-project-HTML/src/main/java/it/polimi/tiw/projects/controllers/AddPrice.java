@@ -60,7 +60,9 @@ public class AddPrice extends HttpServlet{
 		String quotePar;
 		int price = 0;
 		int quoteID = 0;
-		User username = new User();
+		
+		HttpSession session = request.getSession();
+		User username = (User) session.getAttribute("user");
 		employeeUser = username.getUsername();
 		
 		pricePar = request.getParameter("pricePar");
