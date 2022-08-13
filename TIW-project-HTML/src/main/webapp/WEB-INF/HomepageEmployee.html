@@ -34,7 +34,7 @@
 			</tbody>
 		</table>
 	</div>  
-	<div th:if="${quotes.size() == 0}"> No quotes were created.</div>
+	<div th:if="${quotes.size() == 0}"> No quotes were priced.</div>
 
 	<div>
 		<h1>Price Quote</h1>
@@ -60,7 +60,6 @@
 						<td th:text="${ fq.price}"></td>
 						<td th:text="${ fq.clientUsername}"></td>
 						<td><a th:href="@{/GetQuoteDetails(quoteID=${fq.quoteID})}">Details</a></td>
-						<td th:href></td>
 						<td><a th:href="@{/GoToPricePage}">Add price</a></td>
 						<td th:href></td>
 					</tr>

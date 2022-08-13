@@ -55,19 +55,17 @@ public class AddPrice extends HttpServlet{
 			throws ServletException, IOException {
 		doGet(request, response);
 		
-		String pricePar;
 		String employeeUser;
-		String quotePar;
-		int price = 0;
+		double price = 0;
 		int quoteID = 0;
-		User username = new User();
-		employeeUser = username.getUsername();
 		
-		pricePar = request.getParameter("pricePar");
-		quotePar = request.getParameter("quotePar");
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
+		employeeUser = user.getUsername();
+		
 		/*try {*/
-			price = Integer.parseInt(pricePar);
-			quoteID = Integer.parseInt(quotePar);
+			price = Double.parseDouble(request.getParameter("pricePar"));
+			quoteID = Integer.parseInt(request.getParameter("quotePar"));
 		
 		QuoteDAO quote = new QuoteDAO(connection);
 		
