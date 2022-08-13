@@ -127,7 +127,7 @@ public class CreateQuote extends HttpServlet{
 				String path = "/WEB-INF/QuoteResult.html";
 				ServletContext servletContext = getServletContext();
 				final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-				ctx.setVariable("message", "Operation successfull");
+				ctx.setVariable("message", "Operation successful");
 				templateEngine.process(path, ctx, response.getWriter());
 		
 		
