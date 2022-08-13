@@ -1,10 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>HomepageEmployee</title>
+<title>Home</title>
+<link rel="stylesheet" type="text/css" media="all"
+	href="../CSS/mystyle.css" th:href="@{/css/mystyle.css}" />
 </head>
 <body>
-		<h1>Home page Employee</h1>
+	<div align="right">
+		<a th:href="@{/Logout}">Logout</a>
+	</div>
+	<h1>Welcome to the Employee Home Page</h1>
+	<p th:text="${'Nice to see you again ' + session.user.name + ' ' + session.user.surname}"></p>
+	
+	<div th:if="${quotes.size() >0}">
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Product</th>
+					<th>Price</th>
+					<th>Link</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="q : ${quotes}">
+					<td th:text="${q.quoteID}"></td>
+					<td th:text="${ q.productID}"></td>
+					<td th:text="${ q.price}"></td>
+					<td><a th:href="@{/GetQuoteDetails(quoteID=${q.quoteID})}">Details</a></td>
+					<td th:href></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>  
+	<div th:if="${quotes.size() == 0}"> No quotes were created.</div>
+
+	<div>
+		<h1>Price Quote</h1>
+	
+		<p>Select a quote to price</p>
+		
+		<div th:if="${freequotes.size() >0}">
+			<table>
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Product</th>
+						<th>Price</th>
+						<th>Client</th>
+						<th>Details</th>
+						<th>Add price</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="fq : ${freequotes}">
+						<td th:text="${fq.quoteID}"></td>
+						<td th:text="${ fq.productID}"></td>
+						<td th:text="${ fq.price}"></td>
+						<td th:text="${ fq.clientUsername}"></td>
+						<td><a th:href="@{/GetQuoteDetails(quoteID=${fq.quoteID})}">Details</a></td>
+						<td th:href></td>
+						<td><a th:href="@{/GoToPricePage}">Add price</a></td>
+						<td th:href></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>  
+		<div th:if="${freequotes.size() == 0}"> No quotes were created.</div>
+
+	</div>
 </body>
 </html>

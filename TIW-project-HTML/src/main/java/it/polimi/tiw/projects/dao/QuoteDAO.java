@@ -40,6 +40,61 @@ public class QuoteDAO {
 	}
 	
 	
+	public List<Quote> findQuotesByEmployee(String username) throws SQLException{
+		List<Quote> quotes = new ArrayList<Quote>();
+
+		String query = "SELECT * FROM quote WHERE employee = ? ORDER BY id DESC";
+		try (PreparedStatement pstatement = connection.prepareStatement(query);) {
+			pstatement.setString(1, username);
+			try (ResultSet result = pstatement.executeQuery();) {
+				while (result.next()) {
+					Quote quote = new Quote();
+					quote.setEmployeeUsername(username);
+					quote.setClientUsername(result.getString("client"));
+					quote.setProductID(result.getInt("product"));
+					quote.setQuoteID(result.getInt("id"));
+					quote.setPrice(result.getDouble("price"));
+					quotes.add(quote);
+				}
+			}
+		}
+		return quotes;
+	}
+	
+	public List<Quote> findFreeQuotes() throws SQLException{
+		
+		List<Quote> freequotes = new ArrayList<Quote>();
+		
+		String query = "SELECT * FROM quote WHERE employee = 'null'";
+		try (PreparedStatement pstatement = connection.prepareStatement(query);) {
+			try (ResultSet result = pstatement.executeQuery();) {
+				while(result.next()) {
+					Quote quote = new Quote();
+				quote.setClientUsername(result.getString("client"));
+				quote.setProductID(result.getInt("product"));
+				quote.setQuoteID(result.getInt("id"));
+				quote.setPrice(result.getDouble("price"));
+				freequotes.add(quote);
+					}
+				
+				}
+			}
+		return freequotes;
+	}
+	
+	public void addPriceToQuote(int price, int id, String employee) throws SQLException{
+		
+		String query = "SELECT * FROM quote WHERE id = ? (INSERT INTO (price, employee) VALUES (?, ?))";
+		
+		try (PreparedStatement pstatement = connection.prepareStatement(query);) {
+			pstatement.setInt(1, id);
+			pstatement.setInt(2, price);
+			pstatement.setString(3, employee);
+		}
+		
+	}
+	
+	
 	
 	
 	public Quote findQuoteDetails(int quoteID) throws SQLException{
@@ -89,6 +144,7 @@ public class QuoteDAO {
 			return;
 		}
 	}
+
 	
 	
 }

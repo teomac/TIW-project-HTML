@@ -84,7 +84,7 @@ public class Login extends HttpServlet{
 			} else {
 				request.getSession().setAttribute("user", user);
 				if(user.getEmployee()==true){
-				//path = getServletContext().getContextPath() + "/HomeEmployee";;
+				path = getServletContext().getContextPath() + "/HomeEmployee";;
 				}
 				else {
 				path = getServletContext().getContextPath() + "/HomeClient";}
