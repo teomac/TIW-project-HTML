@@ -90,6 +90,7 @@ public class QuoteDAO {
 			pstatement.setInt(1, id);
 			pstatement.setInt(2, price);
 			pstatement.setString(3, employee);
+			pstatement.executeUpdate();
 		}
 		
 	}
