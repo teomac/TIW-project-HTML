@@ -84,12 +84,12 @@ public class QuoteDAO {
 	
 	public void addPriceToQuote(int price, int id, String employee) throws SQLException{
 		
-		String query = "SELECT * FROM quote WHERE id = ? (INSERT INTO (price, employee) VALUES (?, ?))";
+		String query = "UPDATE quote SET price = ?, employee = ? WHERE (id = ?);";
 		
 		try (PreparedStatement pstatement = connection.prepareStatement(query);) {
-			pstatement.setInt(1, id);
-			pstatement.setInt(2, price);
-			pstatement.setString(3, employee);
+			pstatement.setInt(1, price);
+			pstatement.setString(2, employee);
+			pstatement.setInt(3, price);
 			pstatement.executeUpdate();
 		}
 		
