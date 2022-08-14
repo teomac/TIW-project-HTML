@@ -136,7 +136,7 @@ public void addPriceToQuote(double price, int id, String employee) throws SQLExc
 	
 	
 	public void createQuote(int product, String client) throws SQLException{
-		String query = "INSERT INTO quote (product, client) VALUES (?, ?)";
+		String query = "INSERT INTO quote (product, client, price, employee) VALUES (?, ?, 0.0, 'null')";
 		
 		try(PreparedStatement pstatement = connection.prepareStatement(query);){
 			pstatement.setInt(1, product);
