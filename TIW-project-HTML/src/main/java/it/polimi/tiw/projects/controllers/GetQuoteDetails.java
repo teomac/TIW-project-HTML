@@ -96,16 +96,26 @@ public class GetQuoteDetails extends HttpServlet{
 		}
 		
 		// check if the user is a Client and quote.clientUsername is equal to active Client username
-		if (user.getEmployee()==false && !(user.getUsername().equals(quote.getClientUsername()))) {
-				response.sendRedirect(loginpath);
-				return;
+		try {
+			if (user.getEmployee()==false && !(user.getUsername().equals(quote.getClientUsername())))  {
+				throw new Exception ("Not possible to recover quote details");
 			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "You can't access this element");
+			return;
+		}
 		
-		// check if the user is an Employee and quote.employeeUsername is equal to active Employee username (if the quote is already priced)
-				if (user.getEmployee()==true && !(user.getUsername().equals(quote.getEmployeeUsername())) && quote.getPrice()!=0.0d) {
-						response.sendRedirect(loginpath);
-						return;
-					}
+		// check if the user is an Employee and quote.employeeUsername is equal to active Employee username
+		try {
+			if (user.getEmployee()==true && !(user.getUsername().equals(quote.getEmployeeUsername())))  {
+				throw new Exception ("Not possible to recover quote details");
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "You can't access this element");
+			return;
+		}
 		
 				
 		List<Option> selectedOptions = new ArrayList<Option>();	

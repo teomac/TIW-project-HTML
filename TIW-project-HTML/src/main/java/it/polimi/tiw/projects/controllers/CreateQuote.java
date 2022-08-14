@@ -20,8 +20,10 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 import it.polimi.tiw.projects.beans.Option;
+import it.polimi.tiw.projects.beans.Product;
 import it.polimi.tiw.projects.beans.User;
 import it.polimi.tiw.projects.dao.OptionDAO;
+import it.polimi.tiw.projects.dao.ProductDAO;
 import it.polimi.tiw.projects.dao.QuoteDAO;
 import it.polimi.tiw.projects.dao.SOptionsDAO;
 import it.polimi.tiw.projects.utils.ConnectionHandler;
@@ -54,7 +56,7 @@ public class CreateQuote extends HttpServlet{
 		// If the user is not logged in (not present in session) redirect to the login
 		String loginpath = getServletContext().getContextPath() + "/loginPage.html";
 		HttpSession session = request.getSession();
-		if (session.isNew() || session.getAttribute("user") == null) {
+		if (session.isNew() || session.getAttribute("user") == null || ((User) session.getAttribute("user")).getEmployee()==true) {
 			response.sendRedirect(loginpath);
 			return;}
 	}
@@ -68,6 +70,7 @@ public class CreateQuote extends HttpServlet{
 		User user = (User) session.getAttribute("user");
 		
 		String[] selectedOptions = null;
+		int chosenProduct=0;
 		
 		try {
 			selectedOptions=request.getParameterValues("option[]");
@@ -76,6 +79,34 @@ public class CreateQuote extends HttpServlet{
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Incorrect param values");
 			return;
 		}
+		
+		try {
+			chosenProduct= Integer.parseInt(request.getParameter("chosenProduct"));
+		}catch (NullPointerException e) {
+			// only for debugging e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Incorrect param values");
+			return;
+		}
+		
+		ProductDAO productDao = new ProductDAO(connection);
+		Product tempProduct = new Product();
+		
+		try {
+			tempProduct = productDao.findProductDetails(chosenProduct);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Not possible to recover product");
+			return;
+		}
+		
+		try {
+			if(tempProduct.getProductName()==null) {
+				throw new Exception ("Selected product does not exist");
+			}}catch(Exception e) {
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Selected product does not exist");
+				return;
+			}
+		
 		try {
 		if(selectedOptions==null) {
 			throw new Exception ("No option selected");
@@ -92,22 +123,31 @@ public class CreateQuote extends HttpServlet{
 	
 		QuoteDAO quoteDao = new QuoteDAO(connection);
 		OptionDAO optionDao = new OptionDAO(connection);
-		int productID=0;
 		
-		Option opt = new Option();
+		ArrayList<Option> opt = new ArrayList<Option>();
 		
+		for(int i=0; i<options.size(); i++) {
 		try {
-			opt = optionDao.findOptionDetails(options.get(0));
+			opt.add(optionDao.findOptionDetails(options.get(i)));
 		} catch (SQLException e) {
 			e.printStackTrace();
 			response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Not possible to recover quote details");
 			return;
-		}
+		}}
 		
-		productID = opt.getProductID();
+		for(Option o: opt) {
+			try {
+				if(!(o.getProductID()==chosenProduct)) {
+					throw new Exception("Option comes from a different product");
+				}
+			} catch (Exception e) {
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Option comes from a different product");
+				return;
+			}
+		}
 
 		try {
-			quoteDao.createQuote(productID, user.getUsername());
+			quoteDao.createQuote(chosenProduct, user.getUsername());
 			}catch (SQLException e) {
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Not possible to create new quote");
 				return;

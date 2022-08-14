@@ -56,6 +56,7 @@
 				<br><br>
 				<p th:text=" ${message}"></p>
 				<form action="CreateQuote" method="post">
+				<input type="hidden" name="chosenProduct" th:value="${chosenProduct}">
  					 <div th:each="t : ${productOptions}">
    						 <input type="checkbox" th:value="${t.optionID}" th:name="option[]" th:id="${t.name}"/>
     						<label th:text="${t.name}"></label>

@@ -49,8 +49,7 @@
 						<th>Product</th>
 						<th>Price</th>
 						<th>Client</th>
-						<th>Details</th>
-						<th>Add price</th>
+						<th>Link</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -59,8 +58,7 @@
 						<td th:text="${ fq.productID}"></td>
 						<td th:text="${ fq.price}"></td>
 						<td th:text="${ fq.clientUsername}"></td>
-						<td><a th:href="@{/GetQuoteDetails(quoteID=${fq.quoteID})}">Details</a></td>
-						<td><a th:href="@{/GoToPricePage}">Add price</a></td>
+						<td><a th:href="@{/GoToPricePage(quoteID=${fq.quoteID})}">Add price</a></td>
 						<td th:href></td>
 					</tr>
 				</tbody>

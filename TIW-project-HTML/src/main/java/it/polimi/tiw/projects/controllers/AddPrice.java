@@ -17,6 +17,7 @@ import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
+import it.polimi.tiw.projects.beans.Quote;
 import it.polimi.tiw.projects.beans.User;
 import it.polimi.tiw.projects.dao.QuoteDAO;
 import it.polimi.tiw.projects.utils.ConnectionHandler;
@@ -46,7 +47,7 @@ public class AddPrice extends HttpServlet{
 		// If the user is not logged in (not present in session) redirect to the login
 		String loginpath = getServletContext().getContextPath() + "/loginPage.html";
 		HttpSession session = request.getSession();
-		if (session.isNew() || session.getAttribute("user") == null) {
+		if (session.isNew() || session.getAttribute("user") == null || ((User) session.getAttribute("user")).getEmployee()==false) {
 			response.sendRedirect(loginpath);
 			return;}
 	}
@@ -65,18 +66,31 @@ public class AddPrice extends HttpServlet{
 		employeeUser = user.getUsername();
 		
 		/*try {*/
-			price = Double.parseDouble(request.getParameter("pricePar"));
-			quoteID = Integer.parseInt(request.getParameter("quotePar"));
+			price = Double.parseDouble(request.getParameter("price"));
+			quoteID = Integer.parseInt(request.getParameter("quoteID"));
 		
-		QuoteDAO quote = new QuoteDAO(connection);
+		QuoteDAO quoteDao = new QuoteDAO(connection);
+		
+		Quote quote = new Quote();
 		
 		try {
 			if(price != 0 && quoteID != 0) {
-				quote.addPriceToQuote(price, quoteID, employeeUser);
+				quote= quoteDao.findQuoteDetails(quoteID);
 			}
-			/*else {
+			else {
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Price and quote ID cannot be zero");
-			}*/
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			if(quote.getEmployeeUsername()==null && quote.getPrice()==0.0) {
+				quoteDao.addPriceToQuote(price, quoteID, employeeUser);
+			}
+			else {
+				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Quote already priced");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

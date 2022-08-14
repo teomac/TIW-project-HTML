@@ -97,6 +97,7 @@ public class GoToHomepageClient extends HttpServlet {
 		}
 		String productMessage = null;
 		
+		
 		if(productCode!=null) {
 	
 		for(Product p: products) {
@@ -132,6 +133,7 @@ public class GoToHomepageClient extends HttpServlet {
 		final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
 		ctx.setVariable("quotes", quotes);
 		ctx.setVariable("products", products);
+		ctx.setVariable("chosenProduct", productCode);
 		ctx.setVariable("productOptions", productOptions);
 		ctx.setVariable("message", message);
 		templateEngine.process(path, ctx, response.getWriter());

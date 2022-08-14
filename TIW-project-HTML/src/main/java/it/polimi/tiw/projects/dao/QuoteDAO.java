@@ -65,16 +65,17 @@ public class QuoteDAO {
 		
 		List<Quote> freequotes = new ArrayList<Quote>();
 		
-		String query = "SELECT * FROM quote WHERE employee = 'null'";
+		String query = "SELECT * FROM quote WHERE price = '0.0' AND employee IS NULL";
 		try (PreparedStatement pstatement = connection.prepareStatement(query);) {
 			try (ResultSet result = pstatement.executeQuery();) {
 				while(result.next()) {
 					Quote quote = new Quote();
-				quote.setClientUsername(result.getString("client"));
-				quote.setProductID(result.getInt("product"));
-				quote.setQuoteID(result.getInt("id"));
-				quote.setPrice(result.getDouble("price"));
-				freequotes.add(quote);
+					quote.setClientUsername(result.getString("client"));
+					quote.setProductID(result.getInt("product"));
+					quote.setQuoteID(result.getInt("id"));
+					quote.setPrice(result.getDouble("price"));
+					quote.setEmployeeUsername(result.getString("employee"));			
+					freequotes.add(quote);
 					}
 				
 				}
@@ -136,7 +137,7 @@ public void addPriceToQuote(double price, int id, String employee) throws SQLExc
 	
 	
 	public void createQuote(int product, String client) throws SQLException{
-		String query = "INSERT INTO quote (product, client, price, employee) VALUES (?, ?, 0.0, 'null')";
+		String query = "INSERT INTO quote (product, client) VALUES (?, ?)";
 		
 		try(PreparedStatement pstatement = connection.prepareStatement(query);){
 			pstatement.setInt(1, product);

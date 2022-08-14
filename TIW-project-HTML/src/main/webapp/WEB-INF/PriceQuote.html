@@ -7,6 +7,9 @@
 	href="../CSS/mystyle.css" th:href="@{/css/mystyle.css}" />
 </head>
 <body>
+<div align="right">
+		<a th:href="@{/HomeEmployee}">Back to Homepage</a>
+	</div>
 	<h1>Quote details</h1>
 		<div>
 		<!-- TODO -->
@@ -15,11 +18,9 @@
   			<tr>
     			 <th>QuoteID</th>
    				 <th>Client</th>
-   			     <th>Employee</th>
    			     <th>ProductID</th>
    			     <th>Product Name</th>
    			     <th>Image</th>
-   			     <th>Price</th>
  			</tr>
  			</thead>
  				<tbody>
@@ -28,16 +29,23 @@
   			
     				<td th:text= "${quote.quoteID}"> </td>
     				<td th:text= "${quote.clientUsername}"></td>
-    				<td th:text="${quote.employeeUsername}"></td>
     				<td th:text="${quote.productID}"></td>
     				<td th:text="${product.productName}"></td>
     				<td> <img th:src="@{'/upload/' + ${product.productImage}}" height="200" alt="imageProduct"/></td>
-    				<td th:text="${quote.price}"></td>
     			
   			</tr>
   				</tbody>
 		</table>
 		
+		</div>
+		
+		<a>Please insert a price for this quote</a>
+		<div>
+		<form method="post" action="AddPrice" >
+				<input type="number" name="price" required step="0.01" min="0.01" title="Price has to be greater than zero!">
+				<input type="hidden" name="quoteID" th:value="${quote.quoteID}" />
+				<input type="submit" name="submit" value="Send Quote">
+		</form>
 		</div>
 		
 		<div>
