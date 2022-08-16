@@ -55,14 +55,16 @@
 				
 				<br><br>
 				<p th:text=" ${message}"></p>
-				<form action="CreateQuote" method="post">
-				<input type="hidden" name="chosenProduct" th:value="${chosenProduct}">
- 					 <div th:each="t : ${productOptions}">
-   						 <input type="checkbox" th:value="${t.optionID}" th:name="option[]" th:id="${t.name}"/>
-    						<label th:text="${t.name}"></label>
-  					</div>
-  					<br><br>
-  							<input th:if="${message}!=null"
+				
+					<form action="CreateQuote" method="post">
+					<input type="hidden" name="chosenProduct" th:value="${chosenProduct}">
+ 					 	<div th:each="t : ${productOptions}">
+   						 	<input type="checkbox" th:value="${t.optionID}" th:name="option[]" th:id="${t.name}"/>
+    							<label th:text="${t.name}"></label>
+    							<em style="color:red;" th:if="${t.inSale}"> &nbsp;&nbsp;&nbsp; In sale! </em>
+  						</div>
+  						<br><br>
+  								<input th:if="${message}!=null"
   							type="submit" value= 'Create Quote'/>
 						</form>
 	</div>
