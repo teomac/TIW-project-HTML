@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.WebContext;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
@@ -162,15 +161,12 @@ public class CreateQuote extends HttpServlet{
 					return;
 				}
 		}
+	
 		
-		// Redirect to the result page
-				String path = "/WEB-INF/QuoteResult.html";
-				ServletContext servletContext = getServletContext();
-				final WebContext ctx = new WebContext(request, response, servletContext, request.getLocale());
-				ctx.setVariable("message", "Operation successful");
-				templateEngine.process(path, ctx, response.getWriter());
-		
-		
+		// return the user to the right view
+				String ctxpath = getServletContext().getContextPath();
+				String path = ctxpath + "/HomeClient";
+				response.sendRedirect(path);
 		
 	}
 
