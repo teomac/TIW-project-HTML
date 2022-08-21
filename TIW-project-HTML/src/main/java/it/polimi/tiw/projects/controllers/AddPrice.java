@@ -78,9 +78,11 @@ public class AddPrice extends HttpServlet{
 			}
 			else {
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Price and quote ID cannot be zero");
+				return;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return;
 		}
 		
 		try {
@@ -89,9 +91,11 @@ public class AddPrice extends HttpServlet{
 			}
 			else {
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Quote already priced");
+				return;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return;
 		}
 		
 		// return the user to the right view

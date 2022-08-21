@@ -4,7 +4,7 @@
 <meta charset="ISO-8859-1">
 <title>Home</title>
 <link rel="stylesheet" type="text/css" media="all"
-	href="../CSS/mystyle.css" th:href="@{/css/mystyle.css}" />
+	href="../css/mystyle.css" th:href="@{/css/mystyle.css}" />
 </head>
 <body>
 	<div align="right">
@@ -34,7 +34,7 @@
 			</tbody>
 		</table>
 	</div>  
-	<div th:if="${quotes.size() == 0}"> No quotes were priced.</div>
+	<div th:if="${quotes.size() == 0}"> You priced zero quotes.</div>
 
 	<div>
 		<h1>Price Quote</h1>
@@ -64,7 +64,7 @@
 				</tbody>
 			</table>
 		</div>  
-		<div th:if="${freequotes.size() == 0}"> No quotes were created.</div>
+		<div th:if="${freequotes.size() == 0}"> There are no quotes to price now.</div>
 
 	</div>
 </body>

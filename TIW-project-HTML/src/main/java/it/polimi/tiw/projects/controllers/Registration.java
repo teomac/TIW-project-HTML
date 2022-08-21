@@ -46,16 +46,18 @@ public class Registration extends HttpServlet{
 		String name=null;
 		String surname=null;
 		Boolean employee = null;
+		String email=null;
 		
 		try {
 			username = request.getParameter("username");
 			password = request.getParameter("password");
 			name = request.getParameter("name");
 	    	surname = request.getParameter("surname");
+	    	email=request.getParameter("email");
 	    	employee = Boolean.parseBoolean(request.getParameter("isEmployee"));
 	    	
 			
-			if (username == null || password == null || name == null || surname == null || employee == null) {
+			if (username == null || password == null || name == null || surname == null || employee == null || email==null) {
 				throw new Exception("Missing or empty credential value");
 			}
 
@@ -92,10 +94,19 @@ public class Registration extends HttpServlet{
 
     	}
     	
+    	boolean isEmailValid = userDAO.isEmailValid(email);
+    	  
+    	try {
+    	if(!isEmailValid) {
+    		throw new Exception("Email format not valid");
+    	}}catch (Exception e) {
+    		response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Email format not valid");
+    		return;
+    	}
     	
     	
     	try {
-    		userDAO.createCredentials(username, name, surname, password, employee);
+    		userDAO.createCredentials(username, name, surname, password, employee, email);
     	} catch (Exception e) {
     		response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to insert credential in DB");
     	}

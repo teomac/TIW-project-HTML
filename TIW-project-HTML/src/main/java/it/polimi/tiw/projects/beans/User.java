@@ -7,6 +7,7 @@ public class User {
 	private String surname;
 	private String password;
 	private Boolean employee;
+	private String email;
 	
 	
 
@@ -52,5 +53,13 @@ public class User {
 	
 	public Boolean getEmployee() {
 		return employee;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 }

@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
+
 import org.apache.commons.lang.StringEscapeUtils;
 import it.polimi.tiw.projects.beans.User;
 
@@ -29,6 +31,7 @@ public class UserDAO {
 					user.setName(result.getString("name"));
 					user.setSurname(result.getString("surname"));
 					user.setEmployee(result.getBoolean("employee"));
+					user.setEmail(result.getString("email"));
 					return user;
 				}
 			}
@@ -37,8 +40,8 @@ public class UserDAO {
 	
 	
 	
-	public void createCredentials(String username, String name, String surname, String password, Boolean employee) throws SQLException{
-		String query = "INSERT INTO user (username, name, surname, password, employee) VALUES (LOWER(?), ?, ?, ?, ?)";
+	public void createCredentials(String username, String name, String surname, String password, Boolean employee, String email) throws SQLException{
+		String query = "INSERT INTO user (username, name, surname, password, employee, email) VALUES (LOWER(?), ?, ?, ?, ?, ?)";
 		
 		try(PreparedStatement pstatement = con.prepareStatement(query);){
 			pstatement.setString(1, username);
@@ -46,6 +49,7 @@ public class UserDAO {
 			pstatement.setString(3, surname);
 			pstatement.setString(4, password);
 			pstatement.setBoolean(5,  employee);
+			pstatement.setString(6, email);
 			pstatement.executeUpdate();
 			return;
 		}
@@ -62,5 +66,12 @@ public class UserDAO {
             }
         }
     }
+		
+		public boolean isEmailValid(String emailAddress) {
+			String regexPattern = "^(.+)@(\\S+)$";
+			return Pattern.compile(regexPattern)
+				      .matcher(emailAddress)
+				      .matches();
+		}
 	
 }
