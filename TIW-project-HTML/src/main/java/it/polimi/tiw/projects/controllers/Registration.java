@@ -109,6 +109,7 @@ public class Registration extends HttpServlet{
     		userDAO.createCredentials(username, name, surname, password, employee, email);
     	} catch (Exception e) {
     		response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to insert credential in DB");
+    		return;
     	}
     	
     	String loginpath = getServletContext().getContextPath() + "/loginPage.html";
