@@ -64,7 +64,7 @@ public class AddPrice extends HttpServlet{
 		User user = (User) session.getAttribute("user");
 		employeeUser = user.getUsername();
 		
-		/*try {*/
+		
 			price = Double.parseDouble(request.getParameter("price"));
 			quoteID = Integer.parseInt(request.getParameter("quoteID"));
 		
